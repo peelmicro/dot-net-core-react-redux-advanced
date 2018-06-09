@@ -18,8 +18,7 @@ $ npm install # Or yarn install
 
 $ dotnet run (or F5 from Visual Studio Code)
 
-*   server is loaded at both http://localhost:5000 and https://localhost:50001
-*   client is loaded at http://localhost:3000 (configured in appsettings.Development.json, it's totally optional. It will used http://localhost:53480/ it is not defined)
+*   it is loaded at both http://localhost:5000 and https://localhost:50001
 *   it executes both server and client at the same time
 
 # Google Client ID configuration

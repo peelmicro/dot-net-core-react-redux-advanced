@@ -13,15 +13,8 @@ namespace NetCoreReactReduxAdvanced
         }
 
         public static IWebHost BuildWebHost(string[] args) {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.development.json", optional: false)
-                .Build();
-
-            var urlSettings = config.GetSection("UrlSettings");
             return WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseUrls(urlSettings["Host"])
                 .Build();
         }
     }
