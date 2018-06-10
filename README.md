@@ -32,8 +32,6 @@ $ dotnet run (or F5 from Visual Studio Code)
 
 2nd) Update your own values
 
-# It it possible 
-
 # Follow the course
 
 Follow the course on https://www.udemy.com/advanced-node-for-developers

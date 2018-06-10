@@ -7,8 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDbGenericRepository;
 using MongoDB.Bson;
+using NetCoreReactReduxAdvanced.Models;
 using NetCoreReactReduxAdvanced.Services;
-
+using ServiceStack.Redis;
 namespace NetCoreReactReduxAdvanced
 {
     public class Startup
@@ -44,12 +45,17 @@ namespace NetCoreReactReduxAdvanced
                 googleOptions.ClientId = Configuration.GetSection("Google").GetValue<string>("ClientId");
                 googleOptions.ClientSecret = Configuration.GetSection("Google").GetValue<string>("ClientSecret");
             });
-            services.AddSingleton<IBlogService, BlogService>();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "Client/build";
-            });                
+            });  
+            services.AddSingleton<IRedisClientsManager> (c =>
+                new RedisManagerPool(Configuration.GetSection("RedisSettings").GetValue<string>("Host")));
+
+            services.AddSingleton<IMongoDbService, MongoDbService>();
+            services.AddSingleton<IBlogService, BlogService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

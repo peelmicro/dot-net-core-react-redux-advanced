@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MongodbIdentity.Models
+﻿namespace NetCoreReactReduxAdvanced.Models.Blog
 {
     public class PostBlog
     {
