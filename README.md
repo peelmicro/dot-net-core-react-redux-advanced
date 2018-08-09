@@ -1,4 +1,4 @@
-# .Net Core version of the Node With React Fullstack Web Development Udemy course
+# .Net Core version of the "Node JS: Advanced Concepts" course
 
 > source code for the .Net Core version of the "Node JS: Advanced Concepts" Udemy course
 
