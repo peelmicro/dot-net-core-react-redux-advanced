@@ -48,7 +48,7 @@ namespace NetCoreReactReduxAdvanced
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "Client/build";
+                configuration.RootPath = "wwwroot/build";
             });  
             services.AddSingleton<IRedisClientsManager> (c =>
                 new RedisManagerPool(Configuration.GetSection("RedisSettings").GetValue<string>("Host")));
@@ -80,7 +80,7 @@ namespace NetCoreReactReduxAdvanced
             });
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "Client";
+                spa.Options.SourcePath = "wwwroot";
 
                 if (env.IsDevelopment())
                 {

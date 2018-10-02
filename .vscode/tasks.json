@@ -1,12 +1,15 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "build",
-      "command": "dotnet",
-      "type": "process",
-      "args": ["build", "${workspaceFolder}/NetCoreReactReduxAdvanced.csproj"],
-      "problemMatcher": "$msCompile"
-    }
-  ]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/NetCoreReactReduxAdvanced/NetCoreReactReduxAdvanced.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
 }
