@@ -51,9 +51,9 @@ $ dotnet run (or F5 from Visual Studio Code)
 
 # Within the code you can see how to
 - Use MongoDb with .Net Core
-- Use Identity with MongoDb with .net Core
+- Use Identity with MongoDb 
 - Use Redis to cache Api responses
-- Return unauthorized code with specific response instead of redirect 302
+- Return unauthorized code with specific response instead of redirect 302 for .NET Core Api
 - Use TestServer to run Integration tests
 - Use Pupperteer Sharp to run UI tests
 - Create a fake protected .Net Core cookie to test authenticated routes
