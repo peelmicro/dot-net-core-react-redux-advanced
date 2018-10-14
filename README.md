@@ -43,6 +43,7 @@ $ dotnet run (or F5 from Visual Studio Code)
 - Open a new Terminal
 - Change to NetCorereactReduxAdvanced folder
 - Execute: dotnet run
+
 2st) Execute the tests in another terminal
 - Open a new Terminal
 - Change to NetCorereactReduxAdvanced.IntegrationTest folder
