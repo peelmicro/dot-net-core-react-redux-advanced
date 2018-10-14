@@ -1,5 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.Net;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -10,6 +16,8 @@ using MongoDB.Bson;
 using NetCoreReactReduxAdvanced.Models;
 using NetCoreReactReduxAdvanced.Services;
 using ServiceStack.Redis;
+using Newtonsoft.Json.Linq;
+
 namespace NetCoreReactReduxAdvanced
 {
     public class Startup
@@ -28,7 +36,7 @@ namespace NetCoreReactReduxAdvanced
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddSession();
+            // services.AddSession();
 
             var mongoDbContext = new MongoDbContext(
                 Configuration.GetSection("MongoDbSettings").GetValue<string>("ConnectionString"),
@@ -38,13 +46,22 @@ namespace NetCoreReactReduxAdvanced
                 .AddMongoDbStores<ApplicationUser, ApplicationRole, ObjectId>(mongoDbContext)
                 .AddDefaultTokenProviders();
 
-            services.ConfigureApplicationCookie(option => { option.LoginPath = "/auth/index"; });
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Override the default events
+                options.Events = new CookieAuthenticationEvents
+                {
+                    OnRedirectToAccessDenied = ReplaceRedirectorWithStatusCode(HttpStatusCode.Forbidden),
+                    OnRedirectToLogin = ReplaceRedirectorWithStatusCode(HttpStatusCode.Unauthorized)
+                };
+            });
 
             services.AddAuthentication().AddGoogle(googleOptions =>
             {
                 googleOptions.ClientId = Configuration.GetSection("Google").GetValue<string>("ClientId");
                 googleOptions.ClientSecret = Configuration.GetSection("Google").GetValue<string>("ClientSecret");
             });
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -55,6 +72,7 @@ namespace NetCoreReactReduxAdvanced
 
             services.AddSingleton<IMongoDbService, MongoDbService>();
             services.AddSingleton<IBlogService, BlogService>();
+            services.AddScoped<IUserService, UserService>();
 
         }
 
@@ -69,7 +87,6 @@ namespace NetCoreReactReduxAdvanced
             {
                 app.UseHsts();
             }
-            app.UseSession();
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc(routes =>
@@ -88,5 +105,16 @@ namespace NetCoreReactReduxAdvanced
                 }
             });            
         }
+
+        private static Func<RedirectContext<CookieAuthenticationOptions>, Task> ReplaceRedirectorWithStatusCode(HttpStatusCode statusCode) => context =>
+        {
+            // Adapted from https://stackoverflow.com/questions/42030137/suppress-redirect-on-api-urls-in-asp-net-core
+            context.Response.StatusCode = (int) statusCode;
+            context.Response.ContentType = "application/json";
+            dynamic result = new JObject();
+            result.error = "You must log in!";
+            context.Response.WriteAsync((string) result.ToString());
+            return Task.CompletedTask;
+        };
     }
 }

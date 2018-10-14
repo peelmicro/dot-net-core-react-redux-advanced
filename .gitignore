@@ -1,2 +1,5 @@
 # Visual Studio cache/options directory
 .vs/
+/NetCoreReactReduxAdvanced.IntegrationTest/bin
+/NetCoreReactReduxAdvanced.IntegrationTest/obj
+/TempCode

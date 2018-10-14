@@ -28,7 +28,7 @@ namespace NetCoreReactReduxAdvanced.Models.Blog
         public BsonDateTime CreatedAt { get; set; } = DateTime.UtcNow;
         [BsonElement("__v")]
         [JsonProperty("__v")]
-        public int Version { get; set; } = 0;
+        public int Version { get; set; }
 
         public Blog(PostBlog postBlog, ObjectId user)
         {

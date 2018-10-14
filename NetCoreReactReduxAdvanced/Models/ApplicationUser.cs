@@ -5,7 +5,7 @@ namespace NetCoreReactReduxAdvanced.Models
 {
     public class ApplicationUser : MongoIdentityUser<ObjectId>
     {
-        public ApplicationUser() : base()
+        public ApplicationUser()
         {
         }
 

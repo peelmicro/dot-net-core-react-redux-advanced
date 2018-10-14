@@ -10,7 +10,7 @@ $ dotnet restore (They will be installed automatically when running anyway)
 
 # install clients dependencies
 
-$ cd client
+$ cd NetCorereactReduxAdvanced\wwwroot
 
 $ npm install # Or yarn install
 
@@ -31,6 +31,33 @@ $ dotnet run (or F5 from Visual Studio Code)
 1st) Rename appsettings.example.json to appsettings.json
 
 2nd) Update your own values
+
+# In order to use Redis it must be installed and started
+
+- Install from https://github.com/MicrosoftArchive/redis/releases (Windows Version)
+- Execute redis-server to start it
+
+# In order to run the automated testing
+
+1st) Run the main program in one terminal
+- Open a new Terminal
+- Change to NetCorereactReduxAdvanced folder
+- Execute: dotnet run
+2st) Execute the tests in another terminal
+- Open a new Terminal
+- Change to NetCorereactReduxAdvanced.IntegrationTest folder
+- Execute: dotnet test
+
+# Within the code you can see how to
+- Use MongoDb with .Net Core
+- Use Identity with MongoDb with .net Core
+- Use Redis to cache Api responses
+- Return unauthorized code with specific response instead of redirect 302
+- Use TestServer to run Integration tests
+- Use Pupperteer Sharp to run UI tests
+- Create a fake protected .Net Core cookie to test authenticated routes
+- Test .NET Core Api requests using Pupperteer Sharp
+- Use of C# Anonymous Methods to simplify the execution of API request tests
 
 # Follow the course
 

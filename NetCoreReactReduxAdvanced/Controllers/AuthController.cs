@@ -1,30 +1,28 @@
-using System;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreReactReduxAdvanced.Models;
-
+using NetCoreReactReduxAdvanced.Services;
 namespace NetCoreReactReduxAdvanced.Controllers
 {
   public class AuthController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserService _userService;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AuthController(IUserService userService, SignInManager<ApplicationUser> signInManager)
         {
-            _userManager = userManager;
+            _userService = userService;
             _signInManager = signInManager;
         }
 
-        [HttpGet]
-        public IActionResult Index(string returnUrl = null)
-        {
-            return Ok("");
-        }
+//        [HttpGet]
+//        public IActionResult Index()
+//        {
+//            return Ok("");
+//        }
 
         [HttpGet]
         public IActionResult Google(string returnUrl = null)
@@ -55,31 +53,16 @@ namespace NetCoreReactReduxAdvanced.Controllers
             }
 
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, true, true);
-
             if (result.Succeeded)
             {
                 return Redirect("/Blogs");
             }
 
             var emailAddress = info.Principal.FindFirstValue(ClaimTypes.Email);
-            var user = new ApplicationUser
-            {
-                Email = emailAddress,
-                UserName = emailAddress,
-                SecurityStamp = new Guid().ToString()
-            };
-            var identityUser = await _userManager.FindByEmailAsync(emailAddress);
-            if (identityUser == null)
-            {
-                await _userManager.CreateAsync(user);
-            }
 
-            var logins = await _userManager.GetLoginsAsync(user);
-            if (logins == null ||
-                !logins.Any(x => x.LoginProvider == info.LoginProvider && x.ProviderKey == info.ProviderKey))
-            {
-                await _userManager.AddLoginAsync(user, info);
-            }
+            var user = await _userService.CreateUserFromEmail(emailAddress);
+
+            await _userService.AddLoginIfDoesNotExist(user, info);
 
             await _signInManager.SignInAsync(user, true);
 
@@ -104,8 +87,7 @@ namespace NetCoreReactReduxAdvanced.Controllers
         [Route("Auth/Current_User")]
         public async Task<ApplicationUser> CurrentUser()
         {
-            
-            var user = HttpContext.User == null ? null : await _userManager.GetUserAsync(HttpContext.User);
+            var user = await _userService.GetUser(HttpContext.User);
             return user;
         }
     }
