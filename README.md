@@ -49,6 +49,9 @@ $ dotnet run (or F5 from Visual Studio Code)
 - Change to NetCorereactReduxAdvanced.IntegrationTest folder
 - Execute: dotnet test
 
+# In order to setup Travis CI
+- Put the settings from the appsettings.json in the Repository Settings on the Web Site
+
 # Within the code you can see how to
 - Use MongoDb with .Net Core
 - Use Identity with MongoDb 
@@ -59,6 +62,7 @@ $ dotnet run (or F5 from Visual Studio Code)
 - Create a fake protected .Net Core cookie to test authenticated routes
 - Test .NET Core Api requests using Pupperteer Sharp
 - Use of C# Anonymous Methods to simplify the execution of API request tests
+- Use of Travis CI for Continuous Integration
 
 # Follow the course
 

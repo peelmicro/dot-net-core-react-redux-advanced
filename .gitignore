@@ -3,3 +3,4 @@
 /NetCoreReactReduxAdvanced.IntegrationTest/bin
 /NetCoreReactReduxAdvanced.IntegrationTest/obj
 /TempCode
+/NetCoreReactReduxAdvanced/appsettings.travis.json
