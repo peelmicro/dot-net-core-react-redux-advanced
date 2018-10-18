@@ -2,9 +2,10 @@ language: csharp
 mono: none
 dotnet: 2.1.0
 services:
-  - mongodb
-  - redis-server
-
+ - mongodb
+ - redis-server
+install:
+ - dotnet restore
 script:
  - dotnet build
  - dotnet test NetCoreReactReduxAdvanced.IntegrationTest.csproj
