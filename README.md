@@ -59,6 +59,7 @@ $ dotnet run (or F5 from Visual Studio Code)
 - Return unauthorized code with specific response instead of redirect 302 for .NET Core Api
 - Use TestServer to run Integration tests
 - Use Pupperteer Sharp to run UI tests
+- Autorun Tests with Pupperteer using WebHostBuilder
 - Create a fake protected .Net Core cookie to test authenticated routes
 - Test .NET Core Api requests using Pupperteer Sharp
 - Use of C# Anonymous Methods to simplify the execution of API request tests
