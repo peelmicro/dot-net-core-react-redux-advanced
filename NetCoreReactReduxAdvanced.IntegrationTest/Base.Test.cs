@@ -17,20 +17,28 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Identity;
 using NetCoreReactReduxAdvanced.Models;
 using NetCoreReactReduxAdvanced.Services;
+using System.Reflection;
+using Xunit;
 
 namespace NetCoreReactReduxAdvanced.IntegrationTest
 {
+    [Collection("Loader collection")]
     public class BaseTest:  IDisposable
     {
         protected Browser Browser { get; set; }
         protected Page Page { get; private set; }
         protected TestServer TestServer { get; private set; }
-        protected  HttpClient HttpClient { get; private set; }
+        protected HttpClient HttpClient { get; private set; }
         protected ApplicationUser NewUser { get; private set; }
         protected IUserService UserService { get; private set; }
+        LoaderFixture _fixture;
 
-        public BaseTest()
+        public BaseTest(LoaderFixture fixture)
         {
+            _fixture = fixture;
+            Browser = _fixture.Browser;
+            TestServer = _fixture.TestServer;
+            HttpClient = _fixture.HttpClient;
             Task.Run(InitializeAsync).Wait();
         }
 
@@ -40,31 +48,13 @@ namespace NetCoreReactReduxAdvanced.IntegrationTest
         }
         public async Task InitializeAsync()
         {
-            var mainPath = Path.GetFullPath("../../../../NetCoreReactReduxAdvanced");
-
-            TestServer = new TestServer(
-                new WebHostBuilder()
-                    .UseStartup<Startup>()
-                    .UseContentRoot(mainPath)
-                    .UseEnvironment("Development")
-                    .ConfigureAppConfiguration((context, config) =>
-                    {
-                        config.SetBasePath(mainPath);
-                        config.AddJsonFile("appsettings.json");
-                    })
-                );
-            HttpClient = TestServer.CreateClient();
-            await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision);
-            Browser = await Puppeteer.LaunchAsync(new LaunchOptions{Headless = true});
             Page = await Browser.NewPageAsync();
-            await Page.GoToAsync("https://localhost:5001/");            
+            await Page.GoToAsync(_fixture.Url);            
         }
 
         public async Task DisposeAsync()
         {
             await RemoveUser();
-            TestServer.Dispose();
-            await Browser.CloseAsync();
             await Page.CloseAsync();
         }
 
@@ -105,13 +95,12 @@ namespace NetCoreReactReduxAdvanced.IntegrationTest
                     Value = cookie
                 });
                 await Task.WhenAll(
-                    Page.GoToAsync("https://localhost:5001/blogs"),
+                    Page.GoToAsync($"{_fixture.Url}blogs"),
                     Page.WaitForNavigationAsync()); 
             }
         }
 
         protected async Task<dynamic> Get(params object[] args)
-//        protected async Task<dynamic> Get(string path)
         {
             var result = await Page.EvaluateFunctionAsync(@"
               (_path) => {
@@ -125,12 +114,10 @@ namespace NetCoreReactReduxAdvanced.IntegrationTest
                   .then(res => res.json());
               }
             ", args);
-//            ", path);
             return result;
         }
 
         protected async Task<dynamic> Post(params object[] args)
-        //protected async Task<dynamic> Post(string path, dynamic data)
         {
             var result = await Page.EvaluateFunctionAsync(@"
               (_path, _data) => {
@@ -145,7 +132,6 @@ namespace NetCoreReactReduxAdvanced.IntegrationTest
                   .then(res => res.json());
               }
             ", args);
-//            ", path, data);
 
             return result;
         }

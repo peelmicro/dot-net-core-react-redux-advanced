@@ -3,9 +3,12 @@ using Xunit;
 
 namespace NetCoreReactReduxAdvanced.IntegrationTest
 {
-//    [Collection("Sequential")]
+    [Collection("Loader collection")]
     public class HeaderTest:  BaseTest
     {
+        public HeaderTest(LoaderFixture fixture) : base(fixture)
+        {
+        }
 
         [Fact]
         public async void TheHeaderHasTheCorrectText() {

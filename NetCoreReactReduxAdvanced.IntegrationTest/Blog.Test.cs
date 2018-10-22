@@ -9,8 +9,12 @@ using Xunit;
 
 namespace NetCoreReactReduxAdvanced.IntegrationTest
 {
+    [Collection("Loader collection")]
     public class BlogTest: BaseTest
     {
+        public BlogTest(LoaderFixture fixture) : base(fixture)
+        {
+        }
 
         private async Task WhenLoggedIn()
         {
