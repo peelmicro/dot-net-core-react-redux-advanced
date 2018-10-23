@@ -85,10 +85,13 @@ namespace NetCoreReactReduxAdvanced
             }
             else
             {
-                app.UseHsts();
+                if (env.IsProduction()) 
+                {
+                    app.UseHsts();
+                    app.UseHttpsRedirection();
+                }
             }
             app.UseAuthentication();
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();            
             app.UseMvc(routes =>

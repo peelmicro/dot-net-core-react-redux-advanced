@@ -18,7 +18,7 @@ namespace NetCoreReactReduxAdvanced.IntegrationTest
     {
         IWebHost _webHost = null;
 
-        public string Url {get; set;} = "https://localhost:5001/";
+        public string Url {get; set;} = "http://localhost:5000/";
         public Browser Browser { get; set; }
         public TestServer TestServer { get; private set; }
         public HttpClient HttpClient { get; private set; }
@@ -51,7 +51,7 @@ namespace NetCoreReactReduxAdvanced.IntegrationTest
             _webHost = new WebHostBuilder()
                 .UseKestrel()
                 .UseStartup<Startup>()
-                .UseEnvironment("Production")
+                .UseEnvironment("Staging")
                 .UseUrls(Url)
                 .ConfigureAppConfiguration((context, config) =>
                 {
@@ -67,7 +67,7 @@ namespace NetCoreReactReduxAdvanced.IntegrationTest
                 new WebHostBuilder()
                     .UseStartup<Startup>()
                     .UseContentRoot(mainPath)
-                    .UseEnvironment("Development")
+                    .UseEnvironment("Staging")
                     .ConfigureAppConfiguration((context, config) =>
                     {
                         config.SetBasePath(mainPath);
