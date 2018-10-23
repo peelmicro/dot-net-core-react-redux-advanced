@@ -56,7 +56,7 @@ namespace NetCoreReactReduxAdvanced.IntegrationTest
                 .ConfigureAppConfiguration((context, config) =>
                 {
                     config.SetBasePath(mainPath);
-                    config.AddJsonFile("appsettings.json");
+                    config.AddJsonFile("appsettings.json", optional: true);
                 })
                 .UseContentRoot(mainPath)
                 .Build();
@@ -70,7 +70,7 @@ namespace NetCoreReactReduxAdvanced.IntegrationTest
                     .ConfigureAppConfiguration((context, config) =>
                     {
                         config.SetBasePath(mainPath);
-                        config.AddJsonFile("appsettings.json");
+                        config.AddJsonFile("appsettings.json", optional: true);
                     })
                 );
             HttpClient = TestServer.CreateClient();
