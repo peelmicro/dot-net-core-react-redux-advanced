@@ -7,4 +7,4 @@ services:
  - redis-server
 script:
  - dotnet publish
- - travis_wait dotnet test NetCoreReactReduxAdvanced.IntegrationTest
+ - dotnet test NetCoreReactReduxAdvanced.IntegrationTest
