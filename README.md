@@ -88,6 +88,12 @@ After 10 minutes they fail with the following message:
 The command "travis_wait dotnet test NetCoreReactReduxAdvanced.IntegrationTest" exited with 137.
 Done. Your build exited with 1.
 
+- It has been detected that it is hung when trying to open the browser with
+
+```
+Browser = await Puppeteer.LaunchAsync(new LaunchOptions{Headless = true});
+```
+
 ## In order to get to know what has been developed follow the course on
 
 https://www.udemy.com/advanced-node-for-developers
