@@ -5,11 +5,26 @@ matrix:
   include:
     - os: linux    
       dotnet: 2.1
+      services:
+        - mongodb
+        - redis-server
     - os: osx
       dotnet: 2.1.300
-services:
- - mongodb
- - redis-server
+before_install:
+  if [[ $TRAVIS_OS_NAME = 'osx' ]]; then
+    echo "Before install - OS is $TRAVIS_OS_NAME"
+    echo "Updating both homebrew, mongodb and redis-server"
+    echo "Updating homebrew"
+    brew update
+    echo "Installing and starting mongodb"
+    brew install mongodb
+    # create a folder for mongodb to prevent an error on mac osx
+    sudo mkdir -p /data/db
+    brew services start mongodb
+    echo "Installing and starting redis-server"
+    brew install redis
+    brew services start redis
+  fi      
 script:
  - dotnet publish
  - dotnet test NetCoreReactReduxAdvanced.IntegrationTest
