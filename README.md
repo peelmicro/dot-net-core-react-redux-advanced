@@ -75,10 +75,12 @@ $ dotnet run (or F5 from Visual Studio Code)
 - Use of Appveyor for Continuous Integration
 
 ## Travis CI issue
-- please notice that currently tests are not executed on Travis properly. 
-They keep on for 10 minutes running with the following meessage:
+- Please notice that currently tests are not executed on Travis CI Linux properly although they do on Travis CI OSX. 
+They keep on running for 10 minutes with the following meessage:
 
-Test run for /home/travis/build/peelmicro/dot-net-core-react-redux-advanced/NetCoreReactReduxAdvanced.IntegrationTest/bin/Debug/netcoreapp2.1/NetCoreReactReduxAdvanced.IntegrationTest.dll(.NETCoreApp,Version=v2.1)
+Test run for 
+
+/home/travis/build/peelmicro/dot-net-core-react-redux-advanced/NetCoreReactReduxAdvanced.IntegrationTest/bin/Debug/netcoreapp2.1/NetCoreReactReduxAdvanced.IntegrationTest.dll(.NETCoreApp,Version=v2.1)
 Microsoft (R) Test Execution Command Line Tool Version 15.8.0
 Copyright (c) Microsoft Corporation.  All rights reserved.
 Starting test execution, please wait...
@@ -93,6 +95,8 @@ Done. Your build exited with 1.
 ```
 Browser = await Puppeteer.LaunchAsync(new LaunchOptions{Headless = true});
 ```
+
+It seems as if the ```WebHostBuilder``` method is not working properly with Linux.
 
 ## In order to get to know what has been developed follow the course on
 
