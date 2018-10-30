@@ -67,10 +67,10 @@ $ dotnet run (or F5 from Visual Studio Code)
 - Use Redis to cache Api responses
 - Return unauthorized code with specific response instead of redirect 302 for .NET Core Api
 - Use TestServer to run Integration tests
-- Use Pupperteer Sharp to run UI tests
-- Autorun Tests with Pupperteer using WebHostBuilder
+- Use Puppeteer Sharp to run UI tests
+- Autorun Tests with Puppeteer using WebHostBuilder
 - Create a fake protected .Net Core cookie to test authenticated routes
-- Test .NET Core Api requests using Pupperteer Sharp
+- Test .NET Core Api requests using Puppeteer Sharp
 - Use C# Anonymous Methods to simplify the execution of API request tests
 - Use Travis CI for Continuous Integration
 - Use Appveyor for Continuous Integration
