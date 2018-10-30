@@ -10,12 +10,13 @@ $ dotnet restore (They will be installed automatically when running anyway)
 
 ## install clients dependencies
 
-$ cd NetCorereactReduxAdvanced\wwwroot
+$ cd NetCorereactReduxAdvanced\ClientApp
 
 $ npm install # Or yarn install
 
 ## execute it
 
+$ cd NetCorereactReduxAdvanced
 $ dotnet run (or F5 from Visual Studio Code)
 
 *   it is loaded at both http://localhost:5000 and https://localhost:50001
@@ -40,7 +41,7 @@ $ dotnet run (or F5 from Visual Studio Code)
 ## In order to run the automated testing
 
 1st) Publish the solution with
-- dotnet run
+- dotnet publish
 
 2st) Execute the tests with
 - dotnet test NetCoreReactReduxAdvanced.IntegrationTest
@@ -53,7 +54,7 @@ $ dotnet run (or F5 from Visual Studio Code)
 * AllowedHosts = *
 * ASPNETCORE_ENVIRONMENT = Testing
 * Google__ClientId = "Your Google Client Id"
-* Google__ClientSecret = = "Your Google Client Secret"
+* Google__ClientSecret = "Your Google Client Secret"
 * MongoDbSettings__ConnectionString = mongodb://127.0.0.1:27017/blog_ci
 * MongoDbSettings__DatabaseName = blog_ci
 * RedisSettings__Expiration = 60
@@ -75,7 +76,7 @@ $ dotnet run (or F5 from Visual Studio Code)
 - Use Appveyor for Continuous Integration
 - Use Amazon S3 to store images with Presigned URL
 
-## Travis CI issue
+### Travis CI issue
 - Please notice that currently tests are not executed on Travis CI Linux properly although they do on Travis CI OSX. 
 They keep on running for 10 minutes with the following meessage:
 
