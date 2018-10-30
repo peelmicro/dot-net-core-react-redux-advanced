@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
+using Amazon.Runtime;
+using Amazon.S3;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -73,6 +75,15 @@ namespace NetCoreReactReduxAdvanced
             services.AddSingleton<IMongoDbService, MongoDbService>();
             services.AddSingleton<IBlogService, BlogService>();
             services.AddScoped<IUserService, UserService>();
+
+
+            Environment.SetEnvironmentVariable("AWS_ACCESS_KEY_ID", Configuration["S3AccessKeys:AccessKeyId"]);
+            Environment.SetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", Configuration["S3AccessKeys:SecretAccessKey"]);            
+            Environment.SetEnvironmentVariable("AWS_REGION", Configuration["S3AccessKeys:Region"]);            
+            var awsOptions = Configuration.GetAWSOptions();
+            awsOptions.Credentials = new EnvironmentVariablesAWSCredentials();
+            services.AddDefaultAWSOptions(awsOptions);
+            services.AddAWSService<IAmazonS3>();
 
         }
 

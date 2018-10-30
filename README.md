@@ -19,7 +19,7 @@ $ npm install # Or yarn install
 $ dotnet run (or F5 from Visual Studio Code)
 
 *   it is loaded at both http://localhost:5000 and https://localhost:50001
-*   it executes both server and client at the same time
+*   it executes both server and client at the same time 
 
 ## Google Client ID configuration
 
@@ -52,8 +52,8 @@ $ dotnet run (or F5 from Visual Studio Code)
 
 * AllowedHosts = *
 * ASPNETCORE_ENVIRONMENT = Testing
-* Google__ClientId
-* Google__ClientSecret
+* Google__ClientId = "Your Google Client Id"
+* Google__ClientSecret = = "Your Google Client Secret"
 * MongoDbSettings__ConnectionString = mongodb://127.0.0.1:27017/blog_ci
 * MongoDbSettings__DatabaseName = blog_ci
 * RedisSettings__Expiration = 60
@@ -70,9 +70,10 @@ $ dotnet run (or F5 from Visual Studio Code)
 - Autorun Tests with Pupperteer using WebHostBuilder
 - Create a fake protected .Net Core cookie to test authenticated routes
 - Test .NET Core Api requests using Pupperteer Sharp
-- Use of C# Anonymous Methods to simplify the execution of API request tests
-- Use of Travis CI for Continuous Integration
-- Use of Appveyor for Continuous Integration
+- Use C# Anonymous Methods to simplify the execution of API request tests
+- Use Travis CI for Continuous Integration
+- Use Appveyor for Continuous Integration
+- Use Amazon S3 to store images with Presigned URL
 
 ## Travis CI issue
 - Please notice that currently tests are not executed on Travis CI Linux properly although they do on Travis CI OSX. 

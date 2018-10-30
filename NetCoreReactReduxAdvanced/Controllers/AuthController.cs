@@ -18,12 +18,6 @@ namespace NetCoreReactReduxAdvanced.Controllers
             _signInManager = signInManager;
         }
 
-//        [HttpGet]
-//        public IActionResult Index()
-//        {
-//            return Ok("");
-//        }
-
         [HttpGet]
         public IActionResult Google(string returnUrl = null)
         {

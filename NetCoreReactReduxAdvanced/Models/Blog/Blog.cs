@@ -20,6 +20,9 @@ namespace NetCoreReactReduxAdvanced.Models.Blog
         [BsonElement("content")]
         [JsonProperty("content")]
         public string Content { get; set; }
+        [BsonElement("imageUrl")]
+        [JsonProperty("imageUrl")]
+        public string ImageUrl { get; set; }
         [BsonElement("_user")]
         [JsonProperty("_user")]
         public ObjectId User { get; set; }
@@ -34,6 +37,7 @@ namespace NetCoreReactReduxAdvanced.Models.Blog
         {
             Title = postBlog.Title;
             Content = postBlog.Content;
+            ImageUrl = postBlog.ImageUrl;
             User = user;
         }
     }
