@@ -53,13 +53,15 @@ $ dotnet run (or F5 from Visual Studio Code)
 
 * AllowedHosts = *
 * ASPNETCORE_ENVIRONMENT = Testing
-* Google__ClientId = "Your Google Client Id"
-* Google__ClientSecret = "Your Google Client Secret"
+* Google__ClientId = "Your Google Client Id" --> Not needed the real ones for the CI
+* Google__ClientSecret = "Your Google Client Secret" --> Not needed the real ones for the CI
 * MongoDbSettings__ConnectionString = mongodb://127.0.0.1:27017/blog_ci
 * MongoDbSettings__DatabaseName = blog_ci
 * RedisSettings__Expiration = 60
 * RedisSettings__Host = redis://127.0.0.1:6379
-
+* S3AccessKeys__AccessKeyId = "YourAccessKeyId" --> Not needed the real ones for the CI
+* S3AccessKeys__SecretAccessKey": "YourSecretAccessKey" --> Not needed the real ones for the CI
+* S3AccessKeys__Region": "us-east-1" --> Not needed the real ones for the CI
 
 ## Within the code you can see how to
 - Use MongoDb with .Net Core
